@@ -1,13 +1,12 @@
 
 * [overview](#overview)
-* [ideas](#ideas)
 * [workflow.js](#workflow)
     * [existing workflow segments](#workflow-existing)
 * [urlpattern.js](#urlpattern)
     * [example](#urlpattern-example)
-    * [fall-through response](#urlpattern-default)
+    * [fall-through response / default response](#urlpattern-default)
 
-<h2 id="overview"><code>workframe</code></h2>
+## ``workframe.js`` <a name="overview"></a> 
 
 ``workframe.js`` is a nascient [Node.js][node.js] micro-framework, which really means its just
 a collection of simple utilities and ideas with the aim of making it easier to
@@ -19,11 +18,7 @@ the problems of
 
 [node.js]: http://nodejs.org/ "Node.js documentation"
 
-<h2 id="ideas">Ideas</h2>
-
-* mininal coupling
-
-<h2 id="workflow">workflow.js</h2>
+## ``workflow.js``  <a name="workflow></a> 
 
 Coming soon.
 
@@ -32,21 +27,21 @@ Coming soon.
 * workflows to which connect one segment with another while masking
     the developer from the inevitable nested callbacks
 
-<h3 id="workflow-existing">Existing Workflow Segments</h3>
+## Existing Workflow Segments <a name="workflow-existing"></a> 
 
 * utilities
     * I happen to be using Mu (which uses Mustache), so will have some utilities for rendering via Mu
     * I happen to be using Redis, so some utilities along this way as well
 
 
-<h2 id="urlpattern">urlpattern.js</h2>
+## ``urlpattern.js`` <a name="urlpattern"></a> 
 
 ``urlpattern.js`` is a utility for doing regular expression based url dispatching.
 It is modeled very closely off the Django file by the same name.
 A simple example (which assumes ``workframe.js`` is checked out at ``../workframe.js``
 relative to the ``my_project.js`` file).
 
-<h2 id="example">urlpattern.js Usage</h2>
+## ``urlpattern.js`` example <a name="urlpattern-example"></a> 
 
     // my_project.js
     var http = require("http"),
@@ -89,6 +84,8 @@ relative to the ``my_project.js`` file).
         res.write("this is view_project.html for project with name "+project_name);
         res.close();
     }
+
+## Fall-Through Response / Default Response <a name="urlpattern-default></a> 
 
 <h3 id="urlpattern-default">Response When No Urlpattern Matches</h3>
 
