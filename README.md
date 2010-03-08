@@ -5,6 +5,7 @@
 * [urlpattern.js](#urlpattern)
     * [example](#urlpattern-example)
     * [fall-through response / default response](#urlpattern-default)
+* [forms.js](#forms)
 
 ## ``workframe.js`` <a name="overview"></a> 
 
@@ -97,4 +98,26 @@ A valid ``default_404`` function will look like this:
         res.write('No matching pattern found');
         res.close();
     }
+
+
+## ``forms.js`` <a name="forms"></a> 
+
+The forms stuff is really really young and experimental and
+will undoubtedly change as I keep working with it.
+
+Relies on the ``forms.validate`` function which takes a dictionary
+of raw data (probably from ``querystring.parse``, but could be from
+anywhere) and a form schema.
+
+Form schemas are very simple, and look like this:
+
+    [{name:"title"}, {name:"age", type:"number", coerce:parseInt}]
+
+``coerce`` can be any function with an arity of one, and ``type`` can be
+any value returned by the ``typeof`` function.
+
+``forms.validate`` returns a dictionary with two values ``errors`` and ``data``.
+``data`` is the input data passed through any coerce functions and ``errors`` is
+a dictionary where the key is the name of the field with an error and the value is
+a specific error message.
 
