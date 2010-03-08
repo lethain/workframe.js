@@ -87,8 +87,6 @@ relative to the ``my_project.js`` file).
 
 ## Fall-Through Response / Default Response <a name="urlpattern-default"></a> 
 
-<h3 id="urlpattern-default">Response When No Urlpattern Matches</h3>
-
 In addition to defining patterns for dispatch, it is also possible to override the
 default page (to throw a custom 404 page, etc) by updating the value of ``urlpattern.default_404``.
 
