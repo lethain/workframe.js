@@ -21,18 +21,35 @@ the problems of
 
 ## ``workflow.js`` <a name="workflow"></a> 
 
-Coming soon.
+``workflow.js`` is the combination of a simple tool and a simple convention which together make it
+possible to write imperative workflows in Node.js, which makes it possible to describe, modify and
+maintain complicated workflows whose underlying implementation relies on callbacks.
 
-* make it possible to develop and maintain relatively complex node.js apps without blowing your mind
-* define workflow segments which asynchronously do some unit of work
-* workflows to which connect one segment with another while masking
-    the developer from the inevitable nested callbacks
+Workflows are composed of one or more segments. Some example segments are sending an HTTP response
+to a client, rendering a Mustache template, or generating a new unique identifier in Redis.
 
-## Existing Workflow Segments <a name="workflow-existing"></a> 
+Workflows are defined and started like this (usually the ``index`` function would be called by
+the ``urlpattern.js`` dispatcher, but there isn't any programmatic coupling whatsoever):
 
-* utilities
-    * I happen to be using Mu (which uses Mustache), so will have some utilities for rendering via Mu
-    * I happen to be using Redis, so some utilities along this way as well
+    exports.index = function(req, res) {
+        var ctx = {req:req, res:res, template:"index", title:"Home"
+        workflow.run([redis.ids, redis.mget, utils.render_template, utils.http_response], ctx, ["user.projects"]);
+    }
+
+Where each workflow segment is a function which looks like this:
+
+    exports.http_redirect = function(funs, ctx, location) {
+        if (location === undefined) location = ctx.redirect;
+        ctx.res.writeHead(303, {"Location":location});
+        ctx.res.close();
+        workflow.run(funs, ctx);
+    }
+
+More examples at ``segments/``. (Well, they will be there soon, anyway.)
+
+## Existing Workflow Segments <a name="workflow-existing"></a>
+
+These will be coming over the next few days.
 
 
 ## ``urlpattern.js`` <a name="urlpattern"></a> 
