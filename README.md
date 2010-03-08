@@ -36,9 +36,25 @@ Workflows are defined and started like this (usually the ``index`` function woul
 the ``urlpattern.js`` dispatcher, but there isn't any programmatic coupling whatsoever):
 
     exports.index = function(req, res) {
-        var ctx = {req:req, res:res, template:"index", title:"Home"
-        workflow.run([redis.ids, redis.mget, utils.render_template, utils.http_response], ctx, ["user.projects"]);
-    }
+        var ctx = {title:"Home"};
+        workflow.run([[redis.ids, "user.projects"],
+                      redis.mget,
+                      [utils.render_template, "index"],
+                      [utils.http_response, req, res]], 
+                     ctx)};
+
+When specifying segments you may either specify a function (as in the above example), or you may
+specify a list where the zeroth index contains a function and the remaining positions are parameters
+which will be passed as positional parameters to the specific component (this reduces reliance on
+injecting values into the workflow's context dictionary which is a very brittle mechanism for
+passing information, especially if a single segment is used multiple times in a workflow).
+
+    workflow.run([redis.mget, [utils.http_response, "index"]]);
+    workflow.run([[utils.http_redirect, "/"]]);
+
+When you pass parameters this way, they always get injected as position parameters *before*
+the parameters passed by the preceeding function. (This is because usually you only specify
+parameters this way when the flow isn't really linear.)
 
 Where each workflow segment is a function which looks like this:
 
