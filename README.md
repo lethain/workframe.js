@@ -14,8 +14,12 @@ a collection of simple utilities and ideas with the aim of making it easier to
 develop complicated applications on [Node.js][node.js]. In particular it aims to solve
 the problems of
 
-* url dispatch
-* managing deeply-nested callbacks
+* ``workflow.js``: managing deeply-nested callbacks
+* ``urlpattern.js``: regular expression based url dispatch
+* ``forms.js``: form validation
+
+Although all of these utilities are intended to play well together, none of them share
+code or have any special awareness of each other; they are all completely decoupled.
 
 [node.js]: http://nodejs.org/ "Node.js documentation"
 
