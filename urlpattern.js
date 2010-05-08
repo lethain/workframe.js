@@ -4,7 +4,7 @@ exports.patterns = [];
 exports.default_404 = function(req, res) {
     res.writeHead(404, {'Content-Type': 'text/html'});
     res.write('No matching pattern found');
-    res.close();
+    res.end();
 }
 
 exports.dispatch = function(req, res, data) {
